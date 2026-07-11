@@ -1,0 +1,43 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #8878dfab;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+h2 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+p {
+    color:rgb(255, 255, 255);
+    text-align: center;
+}
+
+nav a {
+  margin-right: 10px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
