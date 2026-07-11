@@ -47,3 +47,19 @@ let newRow = document.createElement("tr");
 expenses.push({ date: date, desc: desc, amount: amount });
 localStorage.setItem("expenses", JSON.stringify(expenses));
 });
+
+let expenseTotalDisplay = document.getElementById("expense-total");
+
+if (expenseTotalDisplay) {
+  let saved = localStorage.getItem("expenses");
+  let total = 0;
+
+  if (saved) {
+    let expenses = JSON.parse(saved);
+    expenses.forEach(function(exp) {
+      total += parseFloat(exp.amount);
+    });
+  }
+
+  expenseTotalDisplay.textContent = "$" + total.toFixed(2);
+}
