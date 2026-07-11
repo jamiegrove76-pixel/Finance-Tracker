@@ -11,17 +11,14 @@ if (savedExpenses) {
 let savedMonth = localStorage.getItem("savedMonth");
 let savedYear = localStorage.getItem("savedYear");
 if (savedMonth !== null && (parseInt(savedMonth) !== currentMonth || parseInt(savedYear) !== currentYear)) {
-  // Month has changed since last save — reset
   expenses = [];
   localStorage.setItem("expenses", JSON.stringify(expenses));
   localStorage.setItem("savedMonth", currentMonth);
   localStorage.setItem("savedYear", currentYear);
 } else {
-  // Same month — load as normal
   let saved = localStorage.getItem("expenses");
-  if (saved) {
+  if (saved) { 
     expenses = JSON.parse(saved);
-    // ...rebuild rows like before
   }
 }
 expenseTotal.textContent = "$" + expenses.reduce((total, exp) => total + parseFloat(exp.amount), 0).toFixed(2);
