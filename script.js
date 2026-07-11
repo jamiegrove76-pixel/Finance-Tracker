@@ -2,8 +2,29 @@ let expenses = [];
 let table = document.getElementById("expense-table");
 let form = document.getElementById("expense-form");
 let expenseTotal = document.getElementById("expense-total");
-
-expenseTotal.textContent = "$0.00";
+let savedExpenses = localStorage.getItem("expenses");
+let currentMonth = new Date().getMonth(); 
+let currentYear = new Date().getFullYear(); 
+if (savedExpenses) {
+  expenses = JSON.parse(savedExpenses);
+}
+let savedMonth = localStorage.getItem("savedMonth");
+let savedYear = localStorage.getItem("savedYear");
+if (savedMonth !== null && (parseInt(savedMonth) !== currentMonth || parseInt(savedYear) !== currentYear)) {
+  // Month has changed since last save — reset
+  expenses = [];
+  localStorage.setItem("expenses", JSON.stringify(expenses));
+  localStorage.setItem("savedMonth", currentMonth);
+  localStorage.setItem("savedYear", currentYear);
+} else {
+  // Same month — load as normal
+  let saved = localStorage.getItem("expenses");
+  if (saved) {
+    expenses = JSON.parse(saved);
+    // ...rebuild rows like before
+  }
+}
+expenseTotal.textContent = "$" + expenses.reduce((total, exp) => total + parseFloat(exp.amount), 0).toFixed(2);
 
 let saved = localStorage.getItem("expenses");
 if (saved) {
