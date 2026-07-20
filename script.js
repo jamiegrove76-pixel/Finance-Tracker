@@ -15,7 +15,41 @@ if (savedIncomeMonth !== null && (parseInt(savedIncomeMonth) !== currentMonth ||
   localStorage.setItem("savedIncomeMonth", currentMonth);
   localStorage.setItem("savedIncomeYear", currentYear);
 }
+else {
+  let savedIncome = localStorage.getItem("income");
+  if (savedIncome) {
+    income = JSON.parse(savedIncome);
+  }
+}
+incomeTotal.textContent = "$" + income.reduce((total, inc) => total + parseFloat(inc.amount), 0).toFixed(2);
 
+let savedIncomeData = localStorage.getItem("income");
+if (savedIncomeData) {
+  income = JSON.parse(savedIncomeData);
+}
+let savedIncomeMonthData = localStorage.getItem("savedIncomeMonth");
+let savedIncomeYearData = localStorage.getItem("savedIncomeYear");
+
+if(savedIncome) {
+  income.forEach(function(inc) {
+    let newRow = document.createElement("tr");
+    newRow.innerHTML = "<td>" + inc.date + "</td><td>" + inc.desc + "</td><td>+" + inc.amount + "</td>";
+    incomeTable.appendChild(newRow);
+  });
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  let date = new Date().toLocaleDateString();
+  let desc = document.getElementById("desc").value;
+  let amount = document.getElementById("amount").value;
+  let newRow = document.createElement("tr");
+  newRow.innerHTML = "<td>" + date + "</td><td>" + desc + "</td><td>+" + amount + "</td>";
+  incomeTable.appendChild(newRow);
+  incomeTotal.textContent = "$" + (parseFloat(incomeTotal.textContent.substring(1)) + parseFloat(amount)).toFixed(2);
+  income.push({ date: date, desc: desc, amount: amount });
+  localStorage.setItem("income", JSON.stringify(income));
+});
 let table = document.getElementById("expense-table");
 let form = document.getElementById("expense-form");
 let expenseTotal = document.getElementById("expense-total");
