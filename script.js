@@ -1,4 +1,21 @@
 let expenses = [];
+let income = [];
+let incomeTable = document.getElementById("income-table");
+let incomeForm  = document.getElementById("income-form");
+let incomeTotal = document.getElementById("income-total");
+let savedIncome = localStorage.getItem("income");
+if (savedIncome) {
+  income = JSON.parse(savedIncome);
+}
+let savedIncomeMonth = localStorage.getItem("savedIncomeMonth");
+let savedIncomeYear = localStorage.getItem("savedIncomeYear");
+if (savedIncomeMonth !== null && (parseInt(savedIncomeMonth) !== currentMonth || parseInt(savedIncomeYear) !== currentYear)) {
+  income = [];
+  localStorage.setItem("income", JSON.stringify(income));
+  localStorage.setItem("savedIncomeMonth", currentMonth);
+  localStorage.setItem("savedIncomeYear", currentYear);
+}
+
 let table = document.getElementById("expense-table");
 let form = document.getElementById("expense-form");
 let expenseTotal = document.getElementById("expense-total");
@@ -8,6 +25,7 @@ let currentYear = new Date().getFullYear();
 if (savedExpenses) {
   expenses = JSON.parse(savedExpenses);
 }
+
 let savedMonth = localStorage.getItem("savedMonth");
 let savedYear = localStorage.getItem("savedYear");
 if (savedMonth !== null && (parseInt(savedMonth) !== currentMonth || parseInt(savedYear) !== currentYear)) {
