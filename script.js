@@ -113,3 +113,9 @@ if (incomeForm) {
     }
   });
 }
+
+let balanceTotal = document.getElementById("balance-total");
+if (balanceTotal) {
+  let netBalance = expenses.reduce((sum, exp) => sum - parseFloat(exp.amount), 0) + income.reduce((sum, inc) => sum + parseFloat(inc.amount), 0);
+  balanceTotal.textContent = "$" + netBalance.toFixed(2);
+}
